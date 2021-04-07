@@ -1,4 +1,4 @@
-# xld-ldap-sample
+# xl-openldap-sample
 Sample configuration for Digital.ai Deploy & Release with OpenLDAP
 
 ## Installation
@@ -6,7 +6,7 @@ Sample configuration for Digital.ai Deploy & Release with OpenLDAP
 Clone this repository:
 
 ```
-git clone git@github.com:sblin/xld-ldap-sample.git
+git clone git@github.com:sblin/xl-openldap-sample.git
 ```
 
 If you have a valid Deploy license file, put it in the `xl-deploy-server/conf` directory. Otherwise Deploy will start with a trial license.
