@@ -1,0 +1,57 @@
+version: "2"
+services:
+  xl-deploy:
+    image: xebialabs/xl-deploy:10.0
+    container_name: xl-deploy-ldap
+    ports:
+     - "4516:4516"
+    volumes:
+     - ./xl-deploy-server/conf:/opt/xebialabs/xl-deploy-server/conf
+     - ./xl-deploy-server/ext:/opt/xebialabs/xl-deploy-server/ext
+     - ./xl-deploy-server/hotfix/lib:/opt/xebialabs/xl-deploy-server/hotfix/lib
+     - ./xl-deploy-server/hotfix/plugins:/opt/xebialabs/xl-deploy-server/hotfix/plugins
+     - ./xl-deploy-server/plugins:/opt/xebialabs/xl-deploy-server/plugins
+     - ./xl-deploy-server/repository:/opt/xebialabs/xl-deploy-server/repository
+    environment:
+     - ADMIN_PASSWORD=admin
+     - ACCEPT_EULA=Y
+  xl-release:
+    image: xebialabs/xl-release:10.0.1
+    container_name: xl-release-ldap
+    ports:
+      - "5516:5516"
+    volumes:
+     - ./xl-release-server/archive:/opt/xebialabs/xl-release-server/archive
+     - ./xl-release-server/conf:/opt/xebialabs/xl-release-server/conf
+     - ./xl-release-server/ext:/opt/xebialabs/xl-release-server/ext
+     - ./xl-release-server/hotfix:/opt/xebialabs/xl-release-server/hotfix
+     - ./xl-release-server/plugins:/opt/xebialabs/xl-release-server/plugins
+     - ./xl-release-server/repository:/opt/xebialabs/xl-release-server/repository
+     - ./xl-release-server/reports:/opt/xebialabs/xl-release-server/reports
+    environment:
+      - ADMIN_PASSWORD=admin
+      - ACCEPT_EULA=Y
+  openldap:
+    image: osixia/openldap:1.5.0
+    container_name: openldap
+    command: --copy-service
+    environment:
+      - LDAP_ORGANISATION="My Company"
+      - LDAP_DOMAIN=example.com
+      - LDAP_ADMIN_PASSWORD=admin
+    volumes:
+      - 'openldap_data:/var/lib/ldap'
+      - 'openldap_conf:/etc/ldap/slapd.d'
+      - ./ldif:/container/service/slapd/assets/config/bootstrap/ldif/custom
+  ldapphpadmin:
+    image: osixia/phpldapadmin:stable
+    container_name: ldapphpadmin
+    ports:
+      - '8080:80'
+    environment:
+      - PHPLDAPADMIN_LDAP_HOSTS=openldap
+      - PHPLDAPADMIN_HTTPS=false
+
+volumes:
+  openldap_data:
+  openldap_conf:

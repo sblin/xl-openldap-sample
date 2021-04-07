@@ -1,0 +1,59 @@
+# Entry 1: ou=groups,dc=example,dc=com
+dn: ou=groups,dc=example,dc=com
+objectclass: organizationalUnit
+objectclass: top
+ou: groups
+
+# Entry 2: cn=deploy_users,ou=groups,dc=example,dc=com
+dn: cn=deploy_users,ou=groups,dc=example,dc=com
+cn: deploy_users
+gidnumber: 500
+memberuid: user1
+memberuid: user2
+objectclass: posixGroup
+objectclass: top
+
+# Entry 3: cn=release_users,ou=groups,dc=example,dc=com
+dn: cn=release_users,ou=groups,dc=example,dc=com
+cn: release_users
+gidnumber: 501
+memberuid: user1
+memberuid: user2
+objectclass: posixGroup
+objectclass: top
+
+# Entry 4: ou=users,dc=example,dc=com
+dn: ou=users,dc=example,dc=com
+objectclass: top
+objectclass: organizationalUnit
+ou: users
+
+# Entry 5: cn=user1,ou=users,dc=example,dc=com
+dn: cn=user1,ou=users,dc=example,dc=com
+cn: user1
+displayname: user1
+gidnumber: 500
+homedirectory: /home/users/user1
+mail: user1@example.com
+objectclass: inetOrgPerson
+objectclass: posixAccount
+objectclass: top
+sn: user1
+uid: user1
+uidnumber: 1000
+userpassword: {MD5}X03MO1qnZdYdgyfeuILPmQ==
+
+# Entry 6: cn=user2,ou=users,dc=example,dc=com
+dn: cn=user2,ou=users,dc=example,dc=com
+cn: user2
+displayname: user2
+gidnumber: 500
+homedirectory: /home/users/user2
+mail: user2@example.com
+objectclass: inetOrgPerson
+objectclass: posixAccount
+objectclass: top
+sn: user2
+uid: user2
+uidnumber: 1001
+userpassword: {MD5}X03MO1qnZdYdgyfeuILPmQ==
